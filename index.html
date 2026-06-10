@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>王韵博 — 口腔助理</title>
+<style>
+/* ============================================================
+   "Bone & Ink" — Clinical Precision × Human Warmth
+   Aesthetic: editorial minimalism with warm terracotta accent
+   ============================================================ */
+:root {
+  --bone:       #faf7f3;
+  --bone-deep:  #f2ece4;
+  --ink:        #1a1817;
+  --ink-soft:   #5c5753;
+  --ink-muted:  #8c8782;
+  --clay:       #c2410c;
+  --clay-soft:  #ea580c;
+  --teal:       #0f766e;
+  --teal-wash:  #f0fdf9;
+  --clay-wash:  #fff7ed;
+  --rule:       #e7e2dc;
+  --white:      #ffffff;
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --ease:       cubic-bezier(.22,.61,.36,1);
+}
+
+/* ========== Reset ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+body{
+  font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",-apple-system,sans-serif;
+  background:var(--bone);
+  background-image:
+    radial-gradient(ellipse at 85% 5%, #f2ece4 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 92%, #f0fdf9 0%, transparent 45%);
+  background-attachment:fixed;
+  color:var(--ink-soft);
+  line-height:1.8;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* ========== Top Bar ========== */
+.top-bar{
+  padding:40px 24px 0;
+  text-align:center;
+}
+.top-bar .mark{
+  display:inline-block;
+  width:40px;height:2px;
+  background:var(--clay);
+  border-radius:1px;
+  margin-bottom:18px;
+}
+.top-bar h1{
+  font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",Georgia,serif;
+  font-size:2.4rem;
+  font-weight:700;
+  color:var(--ink);
+  letter-spacing:.06em;
+  line-height:1.2;
+}
+.top-bar .tagline{
+  font-size:.88rem;
+  color:var(--ink-muted);
+  margin-top:6px;
+  letter-spacing:.08em;
+}
+
+/* ========== Navigation ========== */
+.nav-wrap{
+  display:flex;
+  justify-content:center;
+  margin:28px 16px 0;
+}
+.nav-bar{
+  display:inline-flex;
+  gap:0;
+  background:var(--white);
+  border:1px solid var(--rule);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  box-shadow:0 1px 4px rgba(26,24,23,.04);
+}
+.nav-bar button{
+  padding:10px 24px;
+  border:none;
+  background:transparent;
+  font-size:.84rem;
+  font-family:inherit;
+  color:var(--ink-muted);
+  cursor:pointer;
+  transition:all .28s var(--ease);
+  outline:none;
+  white-space:nowrap;
+  letter-spacing:.03em;
+  font-weight:500;
+  border-right:1px solid var(--rule);
+}
+.nav-bar button:last-child{border-right:none}
+.nav-bar button:hover{color:var(--clay);background:var(--clay-wash)}
+.nav-bar button.active{color:var(--clay);font-weight:700;background:var(--clay-wash)}
+
+/* ========== Main Container ========== */
+.main-wrap{
+  max-width:860px;
+  width:100%;
+  margin:0 auto;
+  padding:36px 20px 48px;
+  flex:1;
+}
+
+/* ========== Panel Animation ========== */
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:reveal .45s var(--ease)}
+@keyframes reveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ========== Section Header (with numerals) ========== */
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:28px;
+}
+.sec-head .sec-num{
+  font-family:"Noto Serif SC",serif;
+  font-size:3rem;
+  font-weight:300;
+  color:var(--clay);
+  line-height:1;
+  letter-spacing:-.02em;
+  opacity:.65;
+}
+.sec-head .sec-title{
+  font-family:"Noto Serif SC",serif;
+  font-size:1.2rem;
+  font-weight:700;
+  color:var(--ink);
+  letter-spacing:.04em;
+}
+.sec-head .sec-line{
+  flex:1;
+  height:1px;
+  background:var(--rule);
+  align-self:center;
+  margin-left:8px;
+}
+
+/* ─── About ─── */
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 280px;
+  gap:44px;
+  align-items:start;
+}
+.about-main{}
+.about-main .name-lg{
+  font-family:"Noto Serif SC",serif;
+  font-size:1.7rem;
+  font-weight:700;
+  color:var(--ink);
+  letter-spacing:.05em;
+}
+.about-main .role-tag{
+  display:inline-block;
+  font-size:.82rem;
+  font-weight:600;
+  color:var(--clay);
+  letter-spacing:.06em;
+  margin:2px 0 4px;
+}
+.about-main .loc{
+  font-size:.82rem;
+  color:var(--ink-muted);
+  margin-bottom:16px;
+}
+.about-main .bio{
+  font-size:.9rem;
+  color:var(--ink-soft);
+  line-height:1.95;
+  text-align:justify;
+}
+
+/* Photo column */
+.about-photo{display:flex;flex-direction:column;align-items:center;gap:16px}
+.photo-frame{
+  position:relative;
+  width:150px;height:150px;
+}
+.photo-frame img{
+  width:150px;height:150px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  position:relative;
+  z-index:2;
+}
+/* Offset accent arc */
+.photo-frame::before{
+  content:"";
+  position:absolute;
+  inset:-8px;
+  border-radius:50%;
+  border:2px solid transparent;
+  border-top-color:var(--clay);
+  border-right-color:var(--clay);
+  transform:rotate(-20deg);
+  opacity:.35;
+  z-index:1;
+}
+.photo-frame::after{
+  content:"";
+  position:absolute;
+  inset:-18px;
+  border-radius:50%;
+  border:1px dashed var(--rule);
+  z-index:0;
+}
+
+/* Skills */
+.skills-block{margin-top:22px}
+.skills-block .skills-label{
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  color:var(--ink-muted);
+  margin-bottom:10px;
+}
+.skills-tags{display:flex;flex-wrap:wrap;gap:7px}
+.skill-tag{
+  display:inline-block;
+  padding:6px 14px;
+  font-size:.8rem;
+  background:var(--white);
+  color:var(--ink-soft);
+  border:1px solid var(--rule);
+  border-radius:var(--radius-sm);
+  transition:all .25s var(--ease);
+  cursor:default;
+}
+.skill-tag:hover{
+  color:var(--clay);
+  border-color:var(--clay);
+  background:var(--clay-wash);
+  transform:translateY(-1px);
+}
+
+/* ─── Timeline ─── */
+.timeline{position:relative;padding-left:36px}
+.timeline::before{
+  content:"";
+  position:absolute;
+  left:9px;top:4px;bottom:4px;
+  width:1px;
+  background:linear-gradient(to bottom,transparent,var(--rule) 6%,var(--rule) 94%,transparent);
+}
+.tl-item{margin-bottom:20px;position:relative}
+.tl-item::before{
+  content:"";
+  position:absolute;
+  left:-31px;top:13px;
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--white);
+  border:2px solid var(--rule);
+  z-index:2;
+  transition:all .3s var(--ease);
+}
+.tl-item.open::before{background:var(--clay);border-color:var(--clay);box-shadow:0 0 0 5px rgba(194,65,12,.1)}
+
+.tl-trigger{
+  cursor:pointer;
+  -webkit-user-select:none;
+  user-select:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 18px;
+  background:var(--white);
+  border:1px solid var(--rule);
+  border-radius:var(--radius-md);
+  transition:all .25s var(--ease);
+}
+.tl-trigger:hover{border-color:var(--clay)}
+.tl-trigger .tl-label{
+  font-weight:600;
+  font-size:.9rem;
+  color:var(--ink);
+  flex:1;
+}
+.tl-trigger .tl-icon{
+  flex-shrink:0;
+  width:18px;height:18px;
+  position:relative;
+  opacity:.5;
+  transition:all .3s var(--ease);
+}
+.tl-trigger .tl-icon::before,
+.tl-trigger .tl-icon::after{
+  content:"";
+  position:absolute;
+  background:var(--ink-soft);
+  border-radius:1px;
+  transition:inherit;
+}
+.tl-trigger .tl-icon::before{width:10px;height:1.5px;top:8px;left:4px}
+.tl-trigger .tl-icon::after{width:1.5px;height:10px;top:4px;left:8px}
+.tl-item.open .tl-icon{transform:rotate(90deg);opacity:1}
+.tl-item.open .tl-icon::before,
+.tl-item.open .tl-icon::after{background:var(--clay)}
+
+.tl-content{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .5s var(--ease);
+}
+.tl-item.open .tl-content{max-height:600px}
+.tl-content-inner{
+  padding:0 20px 18px;
+  margin-top:-1px;
+  background:var(--clay-wash);
+  border:1px solid #fed7aa;
+  border-top:none;
+  border-radius:0 0 var(--radius-md) var(--radius-md);
+  font-size:.85rem;
+  color:var(--ink-soft);
+  line-height:1.95;
+  text-align:justify;
+}
+
+/* ─── Project Cards ─── */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{
+  background:var(--white);
+  border:1px solid var(--rule);
+  border-left:3px solid var(--rule);
+  border-radius:0 var(--radius-md) var(--radius-md) 0;
+  padding:22px 22px 18px;
+  cursor:pointer;
+  transition:all .3s var(--ease);
+  position:relative;
+}
+.card:hover{border-left-color:var(--clay);transform:translateX(2px)}
+.card h3{font-family:"Noto Serif SC",serif;font-size:1rem;color:var(--ink);margin-bottom:5px;letter-spacing:.03em}
+.card .card-brief{font-size:.84rem;color:var(--ink-muted);line-height:1.65;margin-bottom:10px}
+.card .card-hint{font-size:.72rem;color:#a8a29e;display:flex;align-items:center;gap:5px;transition:color .25s;letter-spacing:.04em}
+.card:hover .card-hint{color:var(--clay)}
+
+/* ─── Contact ─── */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.contact-list{}
+.contact-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:20px 0;
+  border-bottom:1px solid var(--rule);
+}
+.contact-row:last-child{border-bottom:none}
+.contact-icon-box{
+  width:44px;height:44px;
+  border-radius:var(--radius-sm);
+  background:var(--white);
+  border:1px solid var(--rule);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.2rem;
+  flex-shrink:0;
+  transition:all .25s var(--ease);
+}
+.contact-row:hover .contact-icon-box{border-color:var(--clay);background:var(--clay-wash)}
+.contact-detail .ct-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;color:var(--ink-muted)}
+.contact-detail .ct-value{font-size:.9rem;color:var(--ink);font-weight:500}
+
+/* Form */
+.form-card{
+  background:var(--white);
+  border:1px solid var(--rule);
+  border-radius:var(--radius-md);
+  padding:24px 22px;
+}
+.form-card h3{
+  font-family:"Noto Serif SC",serif;
+  font-size:1rem;
+  color:var(--ink);
+  margin-bottom:16px;
+  letter-spacing:.03em;
+}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.76rem;font-weight:700;color:var(--ink-muted);margin-bottom:4px;letter-spacing:.06em}
+.field input,
+.field textarea{
+  width:100%;
+  padding:10px 14px;
+  font-size:.88rem;
+  font-family:inherit;
+  color:var(--ink);
+  border:1px solid var(--rule);
+  border-radius:var(--radius-sm);
+  outline:none;
+  transition:all .25s var(--ease);
+  background:var(--bone);
+  resize:vertical;
+}
+.field input:focus,
+.field textarea:focus{
+  border-color:var(--clay);
+  box-shadow:0 0 0 3px rgba(194,65,12,.07);
+  background:var(--white);
+}
+.field input::placeholder,
+.field textarea::placeholder{color:#c5c0ba}
+.field textarea{min-height:100px}
+.btn-submit{
+  width:100%;
+  padding:12px;
+  font-size:.9rem;
+  font-family:inherit;
+  font-weight:700;
+  letter-spacing:.06em;
+  color:var(--white);
+  background:var(--clay);
+  border:none;
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  transition:all .25s var(--ease);
+}
+.btn-submit:hover{background:#9a3412;transform:translateY(-1px);box-shadow:0 6px 18px rgba(194,65,12,.2)}
+.btn-submit:active{transform:translateY(0)}
+
+/* ========== Modal ========== */
+.modal-shade{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(26,24,23,.5);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  animation:shadeIn .3s ease;
+}
+.modal-shade.open{display:flex}
+@keyframes shadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{
+  background:var(--white);
+  border-radius:var(--radius-md);
+  max-width:520px;
+  width:100%;
+  max-height:84vh;
+  overflow-y:auto;
+  padding:30px 26px 24px;
+  position:relative;
+  animation:boxIn .4s cubic-bezier(.34,1.56,.64,1);
+  border:1px solid var(--rule);
+  box-shadow:0 24px 56px rgba(26,24,23,.16);
+}
+@keyframes boxIn{from{opacity:0;transform:scale(.88) translateY(28px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-box .modal-x{
+  position:absolute;
+  top:12px;right:14px;
+  width:34px;height:34px;
+  border:none;
+  background:transparent;
+  font-size:1.5rem;
+  color:var(--ink-muted);
+  cursor:pointer;
+  border-radius:50%;
+  transition:all .2s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.modal-box .modal-x:hover{background:var(--bone-deep);color:var(--ink)}
+.modal-box h2{font-family:"Noto Serif SC",serif;font-size:1.15rem;color:var(--ink);margin-bottom:4px;padding-right:30px;letter-spacing:.03em}
+.modal-box .modal-sub{font-size:.82rem;color:var(--ink-muted);margin-bottom:16px}
+.modal-box .modal-body{font-size:.88rem;color:var(--ink-soft);line-height:1.95;text-align:justify}
+
+/* ========== Toast ========== */
+.toast{
+  position:fixed;
+  top:28px;left:50%;
+  transform:translateX(-50%) translateY(-16px);
+  background:var(--ink);
+  color:#fff;
+  padding:12px 30px;
+  border-radius:999px;
+  font-size:.85rem;
+  letter-spacing:.04em;
+  z-index:300;
+  opacity:0;
+  pointer-events:none;
+  transition:all .4s var(--ease);
+  box-shadow:0 8px 24px rgba(26,24,23,.22);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ========== Footer ========== */
+.site-footer{
+  text-align:center;
+  padding:20px;
+  font-size:.74rem;
+  color:var(--ink-muted);
+  border-top:1px solid var(--rule);
+  letter-spacing:.05em;
+}
+.site-footer em{font-style:normal;color:var(--clay);font-weight:600}
+
+/* ========== Responsive ========== */
+@media(max-width:720px){
+  .top-bar{padding:30px 16px 0}
+  .top-bar h1{font-size:1.8rem}
+  .nav-bar button{padding:8px 14px;font-size:.78rem}
+  .about-grid{grid-template-columns:1fr;gap:24px}
+  .about-photo{order:-1}
+  .photo-frame{width:120px;height:120px}
+  .photo-frame img{width:120px;height:120px}
+  .about-main .name-lg{text-align:center}
+  .about-main .role-tag{display:block;text-align:center}
+  .about-main .loc{text-align:center}
+  .skills-tags{justify-content:center}
+  .cards-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .timeline{padding-left:28px}
+  .tl-item::before{left:-24px;width:8px;height:8px;top:12px}
+  .sec-head .sec-num{font-size:2.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Top Bar ===== -->
+<div class="top-bar">
+  <div class="mark"></div>
+  <h1>王韵博</h1>
+  <p class="tagline">口腔助理 · 让繁琐变简单</p>
+</div>
+
+<!-- ===== Navigation ===== -->
+<div class="nav-wrap">
+  <nav class="nav-bar" id="navBar">
+    <button type="button" class="active" data-tab="about">关于我</button>
+    <button type="button" data-tab="experience">工作经历</button>
+    <button type="button" data-tab="projects">项目作品</button>
+    <button type="button" data-tab="contact">联系方式</button>
+  </nav>
+</div>
+
+<!-- ===== Main ===== -->
+<main class="main-wrap">
+
+  <!-- ═══ 关于我 ═══ -->
+  <section class="tab-panel active" id="panel-about">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title">关于我</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="about-grid">
+      <div class="about-main">
+        <div class="name-lg">王韵博</div>
+        <span class="role-tag">口腔助理</span>
+        <div class="loc">📍 沈阳</div>
+        <p class="bio">口腔医学专业应届毕业生，已完成8个月北京民营门诊临床实习。操作基础扎实，无菌观念到位，能独立完成四手配台、基础洁牙与简单充填。习惯带着优化意识去工作——实习期间注意到数据统计环节耗时，主动编写脚本实现统计汇总自动化，减少手工核对耗时。责任心强，追求细节准确性，从病历书写到器械消毒都力求一次做对。已定居沈阳，稳定性强，正全力备考执业助理医师证。期望加入一家正规门诊，踏实学习、快速成长，早日成为能让医生放心交任务的助理。</p>
+        <div class="skills-block">
+          <div class="skills-label">专业技能</div>
+          <div class="skills-tags" id="skillTags"></div>
+        </div>
+      </div>
+      <div class="about-photo">
+        <div class="photo-frame">
+          <img src="1a4e0b1b12ceaa89efed01d7291e80aa.jpg" alt="王韵博">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 工作经历 ═══ -->
+  <section class="tab-panel" id="panel-experience">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title">工作经历</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- ═══ 项目作品 ═══ -->
+  <section class="tab-panel" id="panel-projects">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title">项目作品</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="cards-grid" id="cardsGrid"></div>
+  </section>
+
+  <!-- ═══ 联系方式 ═══ -->
+  <section class="tab-panel" id="panel-contact">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title">联系方式</span>
+      <span class="sec-line"></span>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-list" id="contactList"></div>
+      <div class="form-card">
+        <h3>给我留言</h3>
+        <form id="contactForm">
+          <div class="field"><label for="fname">您的姓名</label><input type="text" id="fname" placeholder="请输入您的姓名" required></div>
+          <div class="field"><label for="femail">电子邮箱</label><input type="email" id="femail" placeholder="请输入您的邮箱" required></div>
+          <div class="field"><label for="fmsg">留言内容</label><textarea id="fmsg" placeholder="请输入留言内容…" required></textarea></div>
+          <button type="submit" class="btn-submit">发送留言</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="site-footer">© 2025 <em>王韵博</em> &nbsp;|&nbsp; 全站由本人独立搭建部署</footer>
+
+<!-- ===== Modal ===== -->
+<div class="modal-shade" id="modalShade">
+  <div class="modal-box" id="modalBox">
+    <button type="button" class="modal-x" id="modalX" aria-label="关闭">&times;</button>
+    <h2 id="modalTitle"></h2>
+    <p class="modal-sub" id="modalSub"></p>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ===== Toast ===== -->
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var skills=[
+    '四手操作配台','病历书写与院感管理','基础洁牙与简单充填',
+    '诊疗流程与术后随访','办公自动化处理','静态网页搭建部署'
+  ];
+  var exps=[
+    {title:'口腔助理实习生 | 北京某某口腔门诊部 | 8个月',
+     body:'系统熟悉民营口腔门诊全流程，从患者接待分诊、四手操作配台到术后随访各环节均有实操经验。熟练完成四手操作配台，确保器械传递准确、术区清晰，能提前预判医生操作节奏。独立完成患者病历书写，严格遵循院感规范。在带教医生指导下完成基础洁牙与简单充填操作。负责诊室器械消毒灭菌与耗材日常管理。主动优化科室数据整理流程，通过编写脚本实现统计汇总自动化，减少手工核对耗时。'},
+    {title:'跨行业工作经历',
+     body:'多段跨行业工作经历涵盖客户沟通与数据统计岗位。日常处理大量客户咨询，锻炼了高强度沟通与情绪管理能力。长期负责报表统计与数据核对，对准确性有严格要求。善于发现工作流程中的重复环节并提出优化建议。'}
+  ];
+  var prjs=[
+    {title:'Excel办公自动化处理',brief:'为科室搭建数据自动合并清洗方案',
+     detail:'日常工作中常需将多个来源的患者数据表进行汇总统计，手动操作耗时且易出错。为此编写了自动化脚本，可一键完成多表格合并、数据清洗去重与格式标准化，将单次处理时间从约30分钟缩短至1分钟内，有效降低人工出错率。'},
+    {title:'个人简历网站搭建',brief:'从零搭建可交互个人网页并部署上线',
+     detail:'零编程基础起步，学习使用代码生成工具，从零编写网页代码，实现标签页切换、折叠展开、弹窗详情等交互功能。独立完成GitHub Pages部署全流程，实现公网访问。本网站即为该项目成果。'}
+  ];
+  var ctcs=[
+    {icon:'📞',label:'电话',value:'19214152478'},
+    {icon:'📧',label:'邮箱',value:'1632338522@qq.com'},
+    {icon:'💬',label:'微信',value:'19214152478'}
+  ];
+
+  // Render skills
+  var st=document.getElementById('skillTags');
+  skills.forEach(function(s){
+    var t=document.createElement('span');t.className='skill-tag';t.textContent=s;st.appendChild(t);
+  });
+
+  // Render timeline
+  var tl=document.getElementById('timeline');
+  exps.forEach(function(e){
+    var d=document.createElement('div');d.className='tl-item';
+    d.innerHTML='<div class="tl-trigger"><span class="tl-label">'+e.title+'</span><span class="tl-icon"></span></div><div class="tl-content"><div class="tl-content-inner">'+e.body+'</div></div>';
+    tl.appendChild(d);
+  });
+
+  // Render cards
+  var cg=document.getElementById('cardsGrid');
+  prjs.forEach(function(p,i){
+    var c=document.createElement('div');c.className='card';c.setAttribute('data-idx',i);
+    c.innerHTML='<h3>'+p.title+'</h3><p class="card-brief">'+p.brief+'</p><span class="card-hint">点击查看详情 →</span>';
+    cg.appendChild(c);
+  });
+
+  // Render contact
+  var cl=document.getElementById('contactList');
+  ctcs.forEach(function(c){
+    var r=document.createElement('div');r.className='contact-row';
+    r.innerHTML='<div class="contact-icon-box">'+c.icon+'</div><div class="contact-detail"><div class="ct-label">'+c.label+'</div><div class="ct-value">'+c.value+'</div></div>';
+    cl.appendChild(r);
+  });
+
+  // Tabs
+  document.getElementById('navBar').addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    var tab=b.getAttribute('data-tab');if(!tab)return;
+    this.querySelectorAll('button').forEach(function(x){x.classList.remove('active')});
+    b.classList.add('active');
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});
+    var t=document.getElementById('panel-'+tab);if(t)t.classList.add('active');
+  });
+
+  // Timeline toggle
+  tl.addEventListener('click',function(e){
+    var trig=e.target.closest('.tl-trigger');if(!trig)return;
+    var item=trig.parentElement;
+    // Close siblings
+    item.parentElement.querySelectorAll('.tl-item.open').forEach(function(s){
+      if(s!==item)s.classList.remove('open');
+    });
+    item.classList.toggle('open');
+  });
+
+  // Modal
+  var shade=document.getElementById('modalShade');
+  var mTitle=document.getElementById('modalTitle');
+  var mSub=document.getElementById('modalSub');
+  var mBody=document.getElementById('modalBody');
+  cg.addEventListener('click',function(e){
+    var card=e.target.closest('.card');if(!card)return;
+    var idx=parseInt(card.getAttribute('data-idx'),10);
+    var p=prjs[idx];
+    mTitle.textContent=p.title;
+    mSub.textContent=p.brief;
+    mBody.textContent=p.detail;
+    shade.classList.add('open');
+    document.body.style.overflow='hidden';
+  });
+  function close(){shade.classList.remove('open');document.body.style.overflow='';}
+  document.getElementById('modalX').addEventListener('click',close);
+  shade.addEventListener('click',function(e){if(e.target===shade)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&shade.classList.contains('open'))close();});
+
+  // Form
+  var toast=document.getElementById('toast'),tt;
+  document.getElementById('contactForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    clearTimeout(tt);
+    toast.textContent='感谢留言，我会尽快回复';
+    toast.classList.add('show');
+    tt=setTimeout(function(){toast.classList.remove('show');},2400);
+    this.reset();
+  });
+})();
+</script>
+</body>
+</html>
