@@ -619,9 +619,9 @@ body{
       <div class="form-card">
         <h3>给我留言</h3>
         <form id="contactForm">
-          <div class="field"><label for="fname">您的姓名</label><input type="text" id="fname" placeholder="请输入您的姓名" required></div>
-          <div class="field"><label for="femail">电子邮箱</label><input type="email" id="femail" placeholder="请输入您的邮箱" required></div>
-          <div class="field"><label for="fmsg">留言内容</label><textarea id="fmsg" placeholder="请输入留言内容…" required></textarea></div>
+          <div class="field"><label for="fname">您的姓名</label><input type="text" id="fname" name="name" placeholder="请输入您的姓名" required></div>
+          <div class="field"><label for="femail">电子邮箱</label><input type="email" id="femail" name="email" placeholder="请输入您的邮箱" required></div>
+          <div class="field"><label for="fmsg">留言内容</label><textarea id="fmsg" name="message" placeholder="请输入留言内容…" required></textarea></div>
           <button type="submit" class="btn-submit">发送留言</button>
         </form>
       </div>
@@ -631,7 +631,7 @@ body{
 </main>
 
 <!-- ===== Footer ===== -->
-<footer class="site-footer">© 2025 <em>王韵博</em> &nbsp;|&nbsp; 全站由本人独立搭建部署</footer>
+<footer class="site-footer">© 2026 <em>王韵博</em> &nbsp;|&nbsp; 全站由本人独立搭建部署</footer>
 
 <!-- ===== Modal ===== -->
 <div class="modal-shade" id="modalShade">
@@ -741,16 +741,49 @@ body{
   shade.addEventListener('click',function(e){if(e.target===shade)close();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&shade.classList.contains('open'))close();});
 
-  // Form
+  // Form — submit to Tally via hidden iframe (avoids CORS issues)
   var toast=document.getElementById('toast'),tt;
+  var tallyFrame=document.createElement('iframe');
+  tallyFrame.name='tally-frame';
+  tallyFrame.style.display='none';
+  document.body.appendChild(tallyFrame);
+
   document.getElementById('contactForm').addEventListener('submit',function(e){
     e.preventDefault();
-    clearTimeout(tt);
-    toast.textContent='感谢留言，我会尽快回复';
-    toast.classList.add('show');
-    tt=setTimeout(function(){toast.classList.remove('show');},2400);
-    this.reset();
+    var form=this;
+    form.target='tally-frame';
+    form.action='https://tally.so/embed/2ERaj9';
+    form.method='POST';
+
+    var done=false;
+    function onSuccess(){
+      if(done)return;done=true;
+      clearTimeout(fb);
+      clearTimeout(tt);
+      toast.textContent='感谢留言，我会尽快回复';
+      toast.classList.add('show');
+      tt=setTimeout(function(){toast.classList.remove('show');},2400);
+      form.reset();
+      form.removeAttribute('target');
+    }
+    function onError(){
+      if(done)return;done=true;
+      clearTimeout(fb);
+      clearTimeout(tt);
+      toast.textContent='发送失败，请稍后重试';
+      toast.classList.add('show');
+      tt=setTimeout(function(){toast.classList.remove('show');},2400);
+      form.removeAttribute('target');
+    }
+
+    tallyFrame.onload=onSuccess;
+    tallyFrame.onerror=onError;
+    // Fallback: if iframe events don't fire within 6s, assume success
+    var fb=setTimeout(onSuccess,6000);
+
+    form.submit();
   });
+
 })();
 </script>
 </body>
